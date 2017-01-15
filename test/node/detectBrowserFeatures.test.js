@@ -4,6 +4,9 @@ var polyfillLoader = require('./../../index.js');
 
 describe('Browser Feature detection Tests for IE 11', function() {
 
+    // TODO: Continue applying this Feature Detection method
+    // https://polyfill.io/v2/docs/examples
+
     before(function() {
         // runs before all tests in this block
         window = {};
