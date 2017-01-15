@@ -1,6 +1,6 @@
 {
   "name": "polyfill-io-pre-detect-features",
-  "description": "Library to detect browser features before calling polyfill services like polyfill.io",
+  "description": "Feature detection in the browser before loading polyfill using services like polyfill.io",
   "version": "0.1.0",
   "license": "MIT",
   "author": {
@@ -11,7 +11,7 @@
   "main": "index.js",
   "scripts": {
     "start": "set NODE_ENV=development && node server.js",
-    "test": "mocha index.test.js"
+    "test": "mocha test/node/detectBrowserFeatures.test.js"
   },
   "repository": {
     "type": "git",

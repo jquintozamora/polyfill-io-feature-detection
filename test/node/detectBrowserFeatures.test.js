@@ -1,6 +1,6 @@
 
 var expect = require('chai').expect;
-var polyfillLoader = require('./index.js');
+var polyfillLoader = require('./../../index.js');
 
 describe('Browser Feature detection Tests for IE 11', function() {
 

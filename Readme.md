@@ -1,5 +1,5 @@
-# Polyfill.io features detection on the browser
-
+# Polyfill.io Features Detection in the browser
+Feature detection in the browser before loading polyfill using services like polyfill.io
 
 
 <br /><br />
