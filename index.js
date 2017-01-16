@@ -1,14 +1,12 @@
 'use strict';
 
-
-
 // Check each feature in the featureString parameter (comma separated) 
 //  and returns an array with all unsupported features for the current browser
-exports.detectBrowserUnsupportedFeatures = function (featureStringCommaSeparated) {
+var detectBrowserUnsupportedFeatures = function (featureStringCommaSeparated) {
     var arrayFeatures = featureStringCommaSeparated
-                    .split(',')
-                    .filter(x => x.length)
-		            .map(x => x.replace(/[\*\/]/g, '')); // Eliminate XSS vuln
+        .split(',')
+        .filter( function (x) { return x.length} )
+        .map( function (x) { return x.replace(/[\*\/]/g, '')}); // Eliminate XSS vuln
     var arrayUnsupportedFeatures = [];
     for (var i = 0; i < arrayFeatures.length; i++) {
         var supportedFeature = true;
@@ -49,25 +47,6 @@ function getDescendantProp(obj, desc) {
     return obj;
 }
 
-// IE9 - 11 Polyfill for object.constructor.name
-// It is not a polyfill because in the case have the constructor
-// of HTML object, then the name property is not implemented in 
-// Function.prototype.name because in that case the constructor itself
-// is not a function, it is an object. 
-function getPolyfilledName(constructor){
-    // No Polyfill needed
-    if (constructor.hasOwnProperty("name")){
-        return constructor.name;
-    }
-    if (typeof constructor === "function") {
-        return constructor.toString().match(/^\s*function ([^ (]*)/)[1];
-    }
-    if (typeof constructor === "object") {
-        return constructor.toString().match(/\[object ([^ \]]*)/)[1];
-    }
-}
-
-
 function loadScript(src, done) {
     let js = document.createElement('script');
     js.src = src;
@@ -80,35 +59,24 @@ function loadScript(src, done) {
     document.head.appendChild(js);
 }
 
-function loadScriptAync(src, done) {
-    //console.log(src + '&callback=' + getPolyfilledName(done));
-    
-    var s = document.createElement('script');
-
-    // Include a `ua` argument set to a supported browser to skip UA identification
-    // (improves response time) and avoid being treated as unknown UA (which would
-    // otherwise result in no polyfills, even with `always`, if UA is unknown)
-    s.src = src + '&callback=' + done;
-    s.async = true;
-    
-    document.head.appendChild(s);
-}
-
-
-exports.polyfillLoader = function (options) {
+var polyfillLoader = function (options) {
     var onCompleted = options.onCompleted;
     if (onCompleted === undefined) {
         return new Error("options.onCompleted function is required.");
     }
     var featureString = options.features || '';
-    var features = this.detectBrowserUnsupportedFeatures(featureString);
+    var features = detectBrowserUnsupportedFeatures(featureString);
     if (features.length === 0) {
         onCompleted();
     } else {
         var polyfillService = options.polyfillService || 'https://cdn.polyfill.io/v2/polyfill.min.js';
-
         // https://polyfill.io/v2/docs/examples#feature-detection
         var polyfillServiceUrl = polyfillService + '?features=' + features.join(',') + '&flags=gated,always';
-        loadScriptAync(polyfillServiceUrl, onCompleted);
+        loadScript(polyfillServiceUrl, onCompleted);
     }
 }
+
+module.exports = {
+    polyfillLoader: polyfillLoader,
+    detectBrowserUnsupportedFeatures: detectBrowserUnsupportedFeatures
+};
