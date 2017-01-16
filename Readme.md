@@ -7,10 +7,10 @@ function App () {
     // your app code here
 }
 
-var pf = require('polyfill-io-feature-detection');
-pf.polyfillLoader({
-    "features": "Promise,fetch,Object.is",
-    "onCompleted": App
+import { polyfillLoader } from 'polyfill-io-feature-detection';
+polyfillLoader({
+  "features": "Promise",
+  "onCompleted": App
 });
 ```
 
