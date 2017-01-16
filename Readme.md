@@ -1,34 +1,29 @@
 # Polyfill.io Features Detection in the browser
 Feature detection in the browser before loading polyfill using services like polyfill.io
 
+## Usage
+```
+function App () {
+    // your app code here
+}
 
-## Unit Tests
-Testing Platform: Mocha
-Assert Library: Chai
-Testing folder structure:
-    test 
-        browser --> just a sample test folder, not used in the project
-        node
-            JS Unit test files
-        utils
-            IE11.Config.js --> specific IE11 window configuration for Testing
+var pf = require('polyfill-io-feature-detection');
+pf.polyfillLoader({
+    "features": "Promise,fetch,Object.is",
+    "onCompleted": App
+});
+```
 
 
-
-## Resources
-[Load polyfills only when needed](https://philipwalton.com/articles/loading-polyfills-only-when-needed)
-Feature Detection: 
-    [Writing Polyfills](https://addyosmani.com/blog/writing-polyfills)
-    [An easier way of using polyfills](https://hacks.mozilla.org/2014/11/an-easier-way-of-using-polyfills)
-    [Polyfill.io feature detectin](https://polyfill.io/v2/docs/examples#feature-detection)
-[Utility to convert between polyfill list and a query string representation](https://github.com/Financial-Times/polyfill-service/blob/master/service/PolyfillSet.js)
-[Testing with Mocha and Proclaim](https://github.com/Financial-Times/polyfill-service/blob/master/test/node/lib/test_aliases.js)
-[Using console.log asserts with Mocha and Chai without Stubbs](https://github.com/mochajs/mocha/wiki/Mess-with-globals)
-
-<br />
-## Contributing
-Please feel free to add your own improvement.
+## Want to contribute?
+Anyone can help make this project better
 
 ## License
-MIT License
-Copyright (c) 2016 Jose Quinto Zamora
+(The MIT License)
+Copyright (c) 2017 Jose Quinto <quintorel@hotmail.com>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the 'Software'), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
