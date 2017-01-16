@@ -1,22 +1,6 @@
 'use strict';
 
-exports.polyfillLoader = function (options) {
-    var onCompleted = options.onCompleted;
-    if (onCompleted === undefined) {
-        return new Error("options.onCompleted function is required.");
-    }
-    var featureString = options.features || '';
-    var features = detectBrowserUnsupportedFeatures(featureString);
-    if (features.length === 0) {
-        onCompleted();
-    } else {
-        var polyfillService = options.polyfillService || 'https://cdn.polyfill.io/v2/polyfill.min.js';
 
-        // https://polyfill.io/v2/docs/examples#feature-detection
-        var polyfillServiceUrl = polyfillService + '?features=' + features.join(',') + '&flags=gated,always';
-        loadScriptAync(polyfillServiceUrl, onCompleted);
-    }
-}
 
 // Check each feature in the featureString parameter (comma separated) 
 //  and returns an array with all unsupported features for the current browser
@@ -86,4 +70,23 @@ function loadScriptAync(src, done) {
     s.src = src + '&callback=' + done;
     s.async = true;
     document.head.appendChild(s);
+}
+
+
+exports.polyfillLoader = function (options) {
+    var onCompleted = options.onCompleted;
+    if (onCompleted === undefined) {
+        return new Error("options.onCompleted function is required.");
+    }
+    var featureString = options.features || '';
+    var features = this.detectBrowserUnsupportedFeatures(featureString);
+    if (features.length === 0) {
+        onCompleted();
+    } else {
+        var polyfillService = options.polyfillService || 'https://cdn.polyfill.io/v2/polyfill.min.js';
+
+        // https://polyfill.io/v2/docs/examples#feature-detection
+        var polyfillServiceUrl = polyfillService + '?features=' + features.join(',') + '&flags=gated,always';
+        loadScriptAync(polyfillServiceUrl, onCompleted);
+    }
 }
