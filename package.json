@@ -1,21 +1,17 @@
 {
-  "name": "polyfill-io-pre-detect-features",
+  "name": "polyfill-io-feature-detection",
+  "version": "1.1.0",
   "description": "Feature detection in the browser before loading polyfill using services like polyfill.io",
-  "version": "0.1.0",
   "license": "MIT",
-  "author": {
-    "name": "Jose Quinto Zamora",
-    "email": "quintorel@hotmail.com",
-    "url": "https://blog.josequinto.com"
-  },
   "main": "index.js",
+  "author": "Jose Quinto <quintorel@hotmail.com> (https://blog.josequinto.com)",
   "scripts": {
     "start": "set NODE_ENV=development && node server.js",
-    "test": "mocha test/node/detectBrowserFeatures.test.js"
+    "test": "mocha test/node/detectBrowserUnsupportedFeatures.test.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jquintozamora/polyfill-io-pre-detect-features"
+    "url": "https://github.com/jquintozamora/polyfill-io-feature-detection"
   },
   "keywords": [
     "polyfill.io",
