@@ -6,8 +6,8 @@
   "main": "index.js",
   "author": "Jose Quinto <quintorel@hotmail.com> (https://blog.josequinto.com)",
   "scripts": {
-    "start": "set NODE_ENV=development && node server.js",
-    "test": "mocha test/node/detectBrowserUnsupportedFeatures.test.js"
+    "test": "mocha test/node/detectBrowserUnsupportedFeatures.test.js",
+    "testLoader": "mocha test/node/polyfillLoader.test.js"
   },
   "repository": {
     "type": "git",

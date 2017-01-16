@@ -49,6 +49,25 @@ function getDescendantProp(obj, desc) {
     return obj;
 }
 
+// IE9 - 11 Polyfill for object.constructor.name
+// It is not a polyfill because in the case have the constructor
+// of HTML object, then the name property is not implemented in 
+// Function.prototype.name because in that case the constructor itself
+// is not a function, it is an object. 
+function getPolyfilledName(constructor){
+    // No Polyfill needed
+    if (constructor.hasOwnProperty("name")){
+        return constructor.name;
+    }
+    if (typeof constructor === "function") {
+        return constructor.toString().match(/^\s*function ([^ (]*)/)[1];
+    }
+    if (typeof constructor === "object") {
+        return constructor.toString().match(/\[object ([^ \]]*)/)[1];
+    }
+}
+
+
 function loadScript(src, done) {
     let js = document.createElement('script');
     js.src = src;
@@ -62,6 +81,8 @@ function loadScript(src, done) {
 }
 
 function loadScriptAync(src, done) {
+    //console.log(src + '&callback=' + getPolyfilledName(done));
+    
     var s = document.createElement('script');
 
     // Include a `ua` argument set to a supported browser to skip UA identification
@@ -69,6 +90,7 @@ function loadScriptAync(src, done) {
     // otherwise result in no polyfills, even with `always`, if UA is unknown)
     s.src = src + '&callback=' + done;
     s.async = true;
+    
     document.head.appendChild(s);
 }
 
