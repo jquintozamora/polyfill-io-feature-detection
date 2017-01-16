@@ -6,7 +6,7 @@ exports.polyfillLoader = function (options) {
         return new Error("options.onCompleted function is required.");
     }
     var featureString = options.features || '';
-    var features = detectBrowserFeatures(featureString);
+    var features = detectBrowserUnsupportedFeatures(featureString);
     if (features.length === 0) {
         onCompleted();
     } else {
