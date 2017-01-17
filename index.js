@@ -5,30 +5,51 @@
 var detectBrowserUnsupportedFeatures = function (featureStringCommaSeparated) {
     var arrayFeatures = featureStringCommaSeparated
         .split(',')
-        .filter( function (x) { return x.length} )
-        .map( function (x) { return x.replace(/[\*\/]/g, '')}); // Eliminate XSS vuln
+        .filter(function (x) { return x.length })
+        .map(function (x) { return x.replace(/[\*\/]/g, '') }); // Eliminate XSS vuln
     var arrayUnsupportedFeatures = [];
     for (var i = 0; i < arrayFeatures.length; i++) {
         var supportedFeature = true;
         var fullFeature = arrayFeatures[i];
-        // Get the feature and the container Object
-        var featureString = fullFeature.substring(fullFeature.lastIndexOf('.') + 1);
-        var objectString = fullFeature.substring(0, fullFeature.lastIndexOf('.'));
-        var object = getDescendantProp(window, objectString);
-        if (object !== undefined) {
-            //if ((object.hasOwnProperty(featureString)) === false) {
-            if ((featureString in object) === false) {
-                supportedFeature = false;
-            }
+        if (contains(fullFeature, "~")) {
+            console.warn('Feature ' + fullFeature + ' can not be detected because it has not JavaScript API.');
         } else {
-            supportedFeature = false;
-        }
-        // If the feature is not supported by the browser, then add it to polyfill it
-        if (supportedFeature === false) {
-            arrayUnsupportedFeatures.push(fullFeature);
+            // Get the feature and the container Object
+            var featureString = fullFeature.substring(fullFeature.lastIndexOf('.') + 1);
+            if (contains(featureString, "@@")) {
+                console.warn('Feature ' + featureString + ' can not be detected because it depends on Symbol.');
+            } else {
+                var objectString = fullFeature.substring(0, fullFeature.lastIndexOf('.'));
+                var object = getDescendantProp(window, objectString);
+                if (object !== undefined) {
+                    //if ((object.hasOwnProperty(featureString)) === false) {
+                    if ((featureString in object) === false) {
+                        supportedFeature = false;
+                    }
+                } else {
+                    supportedFeature = false;
+                }
+                // If the feature is not supported by the browser, then add it to polyfill it
+                if (supportedFeature === false) {
+                    arrayUnsupportedFeatures.push(fullFeature);
+                }
+            }
         }
     }
     return arrayUnsupportedFeatures;
+}
+
+// https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/String/includes
+function contains(origin, search, start) {
+    'use strict';
+    if (typeof start !== 'number') {
+        start = 0;
+    }
+    if (start + search.length > origin.length) {
+        return false;
+    } else {
+        return origin.indexOf(search, start) !== -1;
+    }
 }
 
 function getDescendantProp(obj, desc) {
@@ -39,7 +60,7 @@ function getDescendantProp(obj, desc) {
             if (name in obj) {
                 obj = obj[name];
             } else {
-                console.warn('[getDescendantProp] - ' + name + " property does not exists.");
+                console.warn('[getDescendantProp] - ' + name + ' property does not exists.');
                 return undefined;
             }
         }
