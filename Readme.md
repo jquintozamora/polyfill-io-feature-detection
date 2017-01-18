@@ -2,11 +2,12 @@
 Feature detection in the browser before loading polyfill using services like polyfill.io
 
 [![npm version](https://badge.fury.io/js/polyfill-io-feature-detection.svg)](https://badge.fury.io/js/polyfill-io-feature-detection)
+[![NSP Status](https://nodesecurity.io/orgs/jquinto/projects/97ba8357-aca4-44b2-b17a-62e69e9d0bd2/badge)](https://nodesecurity.io/orgs/jquinto/projects/97ba8357-aca4-44b2-b17a-62e69e9d0bd2)
+[![Code Climate](https://codeclimate.com/github/jquintozamora/polyfill-io-feature-detection/badges/gpa.svg)](https://codeclimate.com/github/jquintozamora/polyfill-io-feature-detection)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/jquintozamora/polyfill-io-feature-detection/master/LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](Readme.md#Contributing)
-[![GitHub issues](https://img.shields.io/github/issues/jquintozamora/polyfill-io-feature-detection.svg)](https://github.com/jquintozamora/polyfill-io-feature-detection/issues)
 
-[![Twitter](https://img.shields.io/twitter/url/https/github.com/jquintozamora/polyfill-io-feature-detection.svg?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=%5Bobject%20Object%5D)
+[![NPM](https://nodei.co/npm/polyfill-io-feature-detection.png?downloads=true)](https://nodei.co/npm/polyfill-io-feature-detection/)
 
 ## Usage
 ```js
