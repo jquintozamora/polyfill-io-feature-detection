@@ -9,6 +9,8 @@ Feature detection in the browser before loading polyfill using services like pol
 
 [![NPM](https://nodei.co/npm/polyfill-io-feature-detection.png?downloads=true)](https://nodei.co/npm/polyfill-io-feature-detection/)
 
+<br />
+
 ## When should I use polyfill-io-feature-detection?
 + You want to isolate your app code from the browser supported features (applying polyfills)
 + You have to add polyfills to yout web application because requires support to different browsers and devices
