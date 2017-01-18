@@ -14,8 +14,8 @@ Feature detection in the browser before loading polyfill using services like pol
 ## When should I use polyfill-io-feature-detection?
 + You want to isolate your app code from the browser supported features (applying polyfills)
 + You have to add polyfills to yout web application because requires support to different browsers and devices
-+ You want to use polyfill service like polyfill.io instead of including the polyfills in your bundle
-+ You want (should) to load polyfills only when needed
++ You want to use polyfill service like [polyfill.io](https://polyfill.io/v2/docs) instead of including the polyfills in your bundle
++ You want (should) to [load polyfills only when needed](https://philipwalton.com/articles/loading-polyfills-only-when-needed)
 + You want to optimize the experience for users on modern browser
 + You want to save the polyfill service call when possible (using this polyfillLoader)
 
