@@ -5,9 +5,20 @@ Feature detection in the browser before loading polyfill using services like pol
 [![NSP Status](https://nodesecurity.io/orgs/jquinto/projects/97ba8357-aca4-44b2-b17a-62e69e9d0bd2/badge)](https://nodesecurity.io/orgs/jquinto/projects/97ba8357-aca4-44b2-b17a-62e69e9d0bd2)
 [![Code Climate](https://codeclimate.com/github/jquintozamora/polyfill-io-feature-detection/badges/gpa.svg)](https://codeclimate.com/github/jquintozamora/polyfill-io-feature-detection)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/jquintozamora/polyfill-io-feature-detection/master/LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](Readme.md#Contributing)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](Readme.md#want-to-contribute)
 
 [![NPM](https://nodei.co/npm/polyfill-io-feature-detection.png?downloads=true)](https://nodei.co/npm/polyfill-io-feature-detection/)
+
+## When should I use polyfill-io-feature-detection?
++ You want to isolate your app code from the browser supported features (applying polyfills)
++ You have to add polyfills to yout web application because requires support to different browsers and devices
++ You want to use polyfill service like polyfill.io instead of including the polyfills in your bundle
++ You want (should) to load polyfills only when needed
++ You want to optimize the experience for users on modern browser
++ You want to save the polyfill service call when possible (using this polyfillLoader)
+
+If you meet all these requirements, you probably will love this package. Because it allows you to load polyfills dynamically only when your browser really need it.
+
 
 ## Usage
 ```js
