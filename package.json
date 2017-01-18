@@ -1,6 +1,6 @@
 {
   "name": "polyfill-io-feature-detection",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "description": "Feature detection in the browser before loading polyfill using services like polyfill.io",
   "license": "MIT",
   "main": "index.js",
