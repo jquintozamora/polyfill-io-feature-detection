@@ -72,7 +72,7 @@ function loadScript(src, done) {
     let js = document.createElement('script');
     js.src = src;
     js.onload = function () {
-        done();
+        done(src);
     };
     js.onerror = function () {
         done(new Error('Failed to load script ' + src));
