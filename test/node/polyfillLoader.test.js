@@ -42,6 +42,19 @@ describe('Polyfill Loader Tests for IE 11', function () {
     });
 
 
+    it('should call main with the polyfill url as a parameter filtered by only not supported features', function (done) {
+        var features = "Promise,Date.now";
+        function main(data) {
+            expect(data).to.eq("https://cdn.polyfill.io/v2/polyfill.min.js?features=Promise&flags=gated,always");
+            // this test is done, go to the next one
+            done();
+        }
+        pf.polyfillLoader({
+            "onCompleted": main,
+            "features": features
+        });
+    });
+
     it('should call main with no parameters as all the features are supported by the browser', function (done) {
         var features = "Array.prototype.filter,Date.now";
         function main(data) {

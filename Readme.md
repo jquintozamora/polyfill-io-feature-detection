@@ -35,6 +35,29 @@ polyfillLoader({
 });
 ```
 
+## Usage with React
+```js
+// index.jsx
+import React from 'react';  
+import {render} from 'react-dom';  
+import App from './containers/App.jsx'; 
+
+import { polyfillLoader } from 'polyfill-io-feature-detection';
+// This function load polyfills only if needed. By default it uses polyfill.io
+polyfillLoader({
+  "features": "Promise,fetch",
+  "onCompleted": main
+});
+
+// That function will be called after loading polyfills
+function main() {
+  render(
+    <App />
+    , document.getElementById('starter')
+  );
+}
+```
+More information: [Getting React to Load polyfills only when needed](https://blog.josequinto.com/2017/01/20/getting-react-to-load-polyfills-only-when-needed)
 
 ## Want to contribute?
 Anyone can help make this project better
