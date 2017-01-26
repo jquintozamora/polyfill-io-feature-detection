@@ -18,10 +18,14 @@ describe('Polyfill Loader Tests for IE 11', function () {
         document.head = {};
         document.head.appendChild = function (obj) {
             setTimeout(function () {
-                if (obj.onload) {
-                    obj.onload();
-                } else {
+                if (obj.src.indexOf("https://error") > -1) {
                     obj.onerror();
+                } else {
+                    if (obj.onload) {
+                        obj.onload();
+                    } else {
+                        obj.onerror();
+                    }
                 }
             }, 500);
         };
@@ -58,7 +62,8 @@ describe('Polyfill Loader Tests for IE 11', function () {
     it('should call main with no parameters as all the features are supported by the browser', function (done) {
         var features = "Array.prototype.filter,Date.now";
         function main(data) {
-            expect(data).to.eq(undefined);
+            //expect(data).to.eq(undefined);
+            console.log(data);
             // this test is done, go to the next one
             done();
         }
@@ -68,4 +73,31 @@ describe('Polyfill Loader Tests for IE 11', function () {
         });
     });
 
+    it('should call my custom service if configured as parameter polyfillService', function (done) {
+        var features = "Promise";
+        function main(data) {
+            expect(data).to.eq('https://myservice?features=Promise&flags=gated,always');
+            // this test is done, go to the next one
+            done();
+        }
+        pf.polyfillLoader({
+            "onCompleted": main,
+            "features": features,
+            "polyfillService": "https://myservice"
+        });
+    });
+
+    it('should call main with error parameter when failed to load the script', function (done) {
+        var features = "Promise";
+        function main(data) {
+            expect(data.toString()).to.eq((new Error('Failed to load script https://error?features=Promise&flags=gated,always')).toString());
+            // this test is done, go to the next one
+            done();
+        }
+        pf.polyfillLoader({
+            "onCompleted": main,
+            "features": features,
+            "polyfillService": "https://error"
+        });
+    });
 });
