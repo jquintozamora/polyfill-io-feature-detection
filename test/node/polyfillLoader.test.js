@@ -62,8 +62,7 @@ describe('Polyfill Loader Tests for IE 11', function () {
     it('should call main with no parameters as all the features are supported by the browser', function (done) {
         var features = "Array.prototype.filter,Date.now";
         function main(data) {
-            //expect(data).to.eq(undefined);
-            console.log(data);
+            expect(data).to.eq(undefined);
             // this test is done, go to the next one
             done();
         }
