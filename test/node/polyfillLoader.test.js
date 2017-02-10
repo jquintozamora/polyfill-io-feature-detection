@@ -5,6 +5,7 @@
 'use strict';
 var expect = require('chai').expect;
 var pf = require('./../../index.js');
+var chakram = require('chakram');
 
 describe('Polyfill Loader Tests for IE 11', function () {
 
@@ -99,4 +100,24 @@ describe('Polyfill Loader Tests for IE 11', function () {
             "polyfillService": "https://error"
         });
     });
+
+
+    it("should have polyfill.io service enable on default and returning 200 status", function (done) {
+        // this.timeout(5000);
+        var features = "Promise,Date.now";
+        function main(data) {
+            expect(data).to.eq("https://cdn.polyfill.io/v2/polyfill.min.js?features=Promise&flags=gated,always");
+            var Ie11UA = "Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko";
+            return chakram.get(data + "&ua=" + encodeURIComponent(Ie11UA))
+            .then(function (response) {
+                chakram.expect(response).to.have.status(200);
+                done();
+            });
+        }
+        pf.polyfillLoader({
+            "onCompleted": main,
+            "features": features
+        });
+    });
+
 });
