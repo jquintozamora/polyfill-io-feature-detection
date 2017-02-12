@@ -69,7 +69,7 @@ function getDescendantProp(obj, desc) {
 }
 
 function loadScript(src, done) {
-    let js = document.createElement('script');
+    var js = document.createElement('script');
     js.src = src;
     js.onload = function () {
         done(src);
