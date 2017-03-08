@@ -6,7 +6,9 @@
   "main": "index.js",
   "author": "Jose Quinto <quintorel@hotmail.com> (https://blog.josequinto.com)",
   "scripts": {
+    "pretest": "npm install",
     "test": "mocha test/node/detectBrowserUnsupportedFeatures.test.js",
+    "pretestLoaders": "npm install",
     "testLoader": "mocha test/node/polyfillLoader.test.js"
   },
   "repository": {
