@@ -12,7 +12,11 @@ var detectBrowserUnsupportedFeatures = function (featureStringCommaSeparated) {
         var supportedFeature = true;
         var fullFeature = arrayFeatures[i];
         if (contains(fullFeature, "~")) {
-            console.warn('Feature ' + fullFeature + ' can not be detected because it has not JavaScript API.');
+            if (contains(fullFeature, "Intl.~locale")) {
+                supportedFeature = checkIntlLocale(window, fullFeature);
+            } else {
+                console.warn('Feature ' + fullFeature + ' can not be detected because it has not JavaScript API.');
+            }
         } else {
             // Get the feature and the container Object
             var featureString = fullFeature.substring(fullFeature.lastIndexOf('.') + 1);
@@ -29,15 +33,48 @@ var detectBrowserUnsupportedFeatures = function (featureStringCommaSeparated) {
                 } else {
                     supportedFeature = false;
                 }
-                // If the feature is not supported by the browser, then add it to polyfill it
-                if (supportedFeature === false) {
-                    arrayUnsupportedFeatures.push(fullFeature);
-                }
             }
+        }
+        // If the feature is not supported by the browser, then add it to polyfill it
+        if (supportedFeature === false) {
+            arrayUnsupportedFeatures.push(fullFeature);
         }
     }
     return arrayUnsupportedFeatures;
 }
+
+function checkIntlLocale(obj, feature) {
+    var localeArray = feature.split("Intl.~locale");
+    var locale = "";
+    if (localeArray.length === 2) {
+        var tempLocale = localeArray[1];
+        if (tempLocale && tempLocale !== "") {
+            locale = tempLocale.replace(".", "");
+
+            if (!("Intl" in obj &&
+                "Collator" in obj.Intl &&
+                "supportedLocalesOf" in obj.Intl.Collator &&
+                obj.Intl.Collator.supportedLocalesOf(locale).length === 1 &&
+                "DateTimeFormat" in obj.Intl &&
+                "supportedLocalesOf" in obj.Intl.DateTimeFormat &&
+                obj.Intl.DateTimeFormat.supportedLocalesOf(locale).length === 1 &&
+                "NumberFormat" in obj.Intl &&
+                "supportedLocalesOf" in obj.Intl.NumberFormat &&
+                obj.Intl.NumberFormat.supportedLocalesOf(locale).length === 1)) {
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            console.warn('Feature ' + feature + ' has wrong Intl.~locale.XX format. For example Intl.~locale.en-US');
+        }
+    } else {
+        console.warn('Feature ' + feature + ' has wrong Intl.~locale format. For example Intl.~locale.en-US');
+    }
+    // if any error, returns false
+    return false;
+}
+
 
 // https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/String/includes
 function contains(origin, search, start) {

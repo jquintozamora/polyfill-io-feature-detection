@@ -138,5 +138,12 @@ describe('Browser Feature detection Tests for IE 11', function () {
         // Note that polyfill.io service will bring empty file when request the feature ramdom-String=+£$
     });
 
+    it('should detect Intl.~locale.en-US as unsupported feature.', function () {
+        // Available polyfills: https://github.com/Financial-Times/polyfill-service/blob/master/docs/assets/compat.json
+        var features = "Intl.~locale.en-US";
+        expect(polyfillLoader.detectBrowserUnsupportedFeatures(features)).to.be.deep.eq(["Intl.~locale.en-US"]);
+    });
+
+
 
 });
